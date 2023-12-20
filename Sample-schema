@@ -1,1 +1,62 @@
-schema
+from pyspark.sql.types import StructType, StructField, StringType, DecimalType, DateType, IntegerType, DoubleType
+
+# Define the schema based on the provided Ab Initio data types
+abinitio_schema = StructType([
+    StructField("claim_nbr", DecimalType(10, 0), True),
+    StructField("claim_seq_br", IntegerType(), True),
+    StructField("claim_stat_id", StringType(), True),
+    StructField("mbr_sk", DecimalType(10, 0), True),
+    StructField("final_pin_sk", DecimalType(10, 0), True),
+    StructField("phr_sk", DecimalType(10, 0), True),
+    StructField("pbr_sk", DecimalType(10, 0), True),
+    StructField("gpi_sk", DecimalType(10, 0), True),
+    StructField("prod_sk", DecimalType(10, 0), True),
+    StructField("compound_sk", DecimalType(10, 0), True),
+    StructField("sbm_dt", DateType(), True),
+    StructField("sbm_tm", StringType(), True),  # Adjust if necessary based on the actual data type
+    StructField("filled_at", DateType(), True),
+    StructField("days_sply", IntegerType(), True),
+    StructField("drg_aty", DecimalType(13, 3), True),
+    StructField("contract_id", StringType(), True),
+    StructField("plan_benefit_pkg_cd", StringType(), True),
+    StructField("rej_cnt", IntegerType(), True),
+    StructField("rej_cd1_sk", DecimalType(10, 0), True),
+    StructField("rej_cd2_sk", DecimalType(10, 0), True),
+    StructField("rej_cd3_sk", DecimalType(10, 0), True),
+    StructField("rej_cd4_sk", DecimalType(10, 0), True),
+    StructField("rej_cd5_sk", DecimalType(10, 0), True),
+    StructField("rej_cd6_sk", DecimalType(10, 0), True),
+    StructField("rej_cd7_sk", DecimalType(10, 0), True),
+    StructField("rej_cd8_sk", DecimalType(10, 0), True),
+    StructField("rej_cd9_sk", DecimalType(10, 0), True),
+    StructField("rej_cd10_sk", DecimalType(10, 0), True),
+    StructField("orig_member_id", StringType(), True),
+    StructField("orig_carrier_id", StringType(), True),
+    StructField("orig_account_id", StringType(), True),
+    StructField("orig_employer_group_id", StringType(), True),
+    StructField("src_env_sk", DecimalType(10, 0), True),
+    StructField("ids_updt_dttm", StringType(), True),  # Adjust if necessary based on the actual data type
+    StructField("dur_msg", StringType(), True),
+    StructField("dur_srvc_nm", DecimalType(10, 0), True),
+    StructField("dur_rsp_cd_cntr", IntegerType(), True),
+    StructField("dur_rsp_fig", StringType(), True),
+    StructField("dur_srvc_cd_rsn", StringType(), True),
+    StructField("dur_table_nm", StringType(), True),
+    StructField("dur_sbm_cd_cntr", IntegerType(), True),
+    StructField("dur_sbm_srvc_cd_rsn", StringType(), True),
+    StructField("dur_sbm_srvc_cd_rslt", StringType(), True),
+    StructField("dur_sbm_prof_srvc_cd", StringType(), True),
+    StructField("dur_prior_auth_num", StringType(), True),
+    StructField("dur_srvc_overd_flag", StringType(), True),
+    StructField("rm_msg", StringType(), True),
+    StructField("rm_seq_nbr", IntegerType(), True),
+    StructField("pbr_adjud_sk", DecimalType(10, 0), True),
+    StructField("drd_addtni_txt", StringType(), True),
+    StructField("newline", StringType(), True),
+])
+
+# Use this schema when reading the data
+df = spark.read.csv("your_data_path", schema=abinitio_schema, sep=",")
+
+# Show the DataFrame
+df.show()
